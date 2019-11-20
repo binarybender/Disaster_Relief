@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <title> UserHome </title>
+  <script type="text/javascript">
+
+
+
+var url = 'https://newsapi.org/v2/everything?' +
+          'q=flood&' +
+          'from=2019-11-10&' +
+          'to=2019-11-18&' +
+          'apiKey=bfd97b0dd88e4dcdaee9bce3ef08d477';
+
+var req = new Request(url);
+
+fetch(req).then(function(response) {
+  return response.json();
+}).then(function(myJson){
+var index = parseInt(Math.random()*myJson['articles'].length)+2 ;
+if(index < 0 )
+    index+=2
+else if(index >= myJson['articles'].length)
+      index-=2;
+document.getElementById("one").href = myJson['articles'][index]['url']
+document.getElementById("one").innerHTML = myJson['articles'][index]['title']
+document.getElementById('o').src = myJson['articles'][index]['urlToImage']
+document.getElementById("two").href = myJson['articles'][index-1]['url']
+document.getElementById("two").innerHTML = myJson['articles'][index-1]['title']
+document.getElementById('oo').src = myJson['articles'][index-1]['urlToImage']
+document.getElementById("three").href = myJson['articles'][index+1]['url']
+document.getElementById("three").innerHTML = myJson['articles'][index+1]['title']
+document.getElementById("ooo").src = myJson['articles'][index+1]['urlToImage']
+
+
+});
+url = 'https://newsapi.org/v2/everything?' +
+          'q=disease&' +
+          'from=2019-11-10&' +
+          'to=2019-11-18&' +
+          'apiKey=bfd97b0dd88e4dcdaee9bce3ef08d477';
+
+req = new Request(url);
+fetch(req).then(function(response) {
+  return response.json();
+}).then(function(myJson){
+var index = parseInt(Math.random()*myJson['articles'].length)+2 ;
+if(index < 0 )
+    index+=2
+else if(index >= myJson['articles'].length)
+      index-=2;
+document.getElementById("four").href = myJson['articles'][index]['url']
+document.getElementById("four").innerHTML = myJson['articles'][index]['title']
+document.getElementById('oooo').src = myJson['articles'][index]['urlToImage']
+document.getElementById("five").href = myJson['articles'][index-1]['url']
+document.getElementById("five").innerHTML = myJson['articles'][index-1]['title']
+document.getElementById('ooooo').src = myJson['articles'][index-1]['urlToImage']
+document.getElementById("six").href = myJson['articles'][index+1]['url']
+document.getElementById("six").innerHTML = myJson['articles'][index+1]['title']
+document.getElementById("oooooo").src = myJson['articles'][index+1]['urlToImage']
+
+
+});
+
+</script>
+
+<style media="screen">
+nav {
+  color: #e1e2e3;
+}
+.navbar-brand img{
+  height: 35px;
+}
+.thumbnail img {
+  width: 350px;
+  height: 170px;
+}
+body {
+  background: url("images/innerbg.jpg");
+}
+</style>
+</head>
+<body>
+
+  <nav class="navbar navbar-dark bg-dark justify-content-between">
+    <a class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
+    <div class="row d-flex justify-content-end mx-2">
+      <h4>Hi <%= username.toUpperCase() %>!<a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
+    </div>
+  </nav>
+<div class="container">
+  <h2> A miniscule foray into the world's suffering </h2>
+  <p>  Feed the hungry, and help those in trouble. Then your light will shine out from the darkness, and the darkness around you will be as bright as noon</p>
+  <p>Be instrumental in changing people's lives and giving them a reason to smile - Bible</p>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="thumbnail">
+
+          <img id = "o" src="" alt="Lights">
+          <div class="caption">
+            <a  href = "" id = "one"></a>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <a href="" target="_blank">
+          <img src="" id = "oo" alt="Nature">
+          <div class="caption">
+            <a href = "" id="two"></a>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="thumbnail">
+
+          <img src="" id = "ooo" >
+          <div class="caption">
+            <a href = "" id = "three"></a>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class = "row">
+  <div class="col-md-4">
+      <div class="thumbnail">
+
+          <img id = "oooo" src="" alt="Lights" >
+          <div class="caption">
+            <a  href = "" id = "four"></a>
+          </div>
+        </a>
+      </div>
+</div>
+<div class="col-md-4">
+      <div class="thumbnail">
+
+          <img id = "ooooo" src="" alt="Lights" >
+          <div class="caption">
+            <a  href = "" id = "five"></a>
+          </div>
+        </a>
+      </div>
+</div>
+<div class="col-md-4">
+      <div class="thumbnail">
+
+          <img id = "oooooo" src="" alt="Lights" >
+          <div class="caption">
+            <a  href = "" id = "six"></a>
+          </div>
+        </a>
+      </div>
+</div>
+</div>
+
+<div class="container d-flex justify-content-center mt-3">
+  <a href="contribute" class="btn btn-lg btn-success">Contribute NOW!</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/home.css">
+
+    <style media="screen">
+      .form-group input {
+        width: 300px;
+      }
+      form {
+        padding-top: 100px;
+      }
+      .card {
+        background: black;
+      }
+      .card-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      }
+      #len {
+        width: 410px;
+      }
+      body {
+          color: white;
+          background: url("images/bg.png"); no-repeat fixed;
+          background-position: center;
+      }
+      .btn {
+        width: 100px;
+      }
+    </style>
+
+    <title>Login</title>
+  </head>
+
+  <body>
+
+    <% if (err === 'success') { %>
+      <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong>You have been registered successfully.Please <a href="userlogin">login</a> to continue.
+      </div>
+    <% } %>
+    <% if (err != '' && err != 'success') { %>
+      <div class="alert alert-warning alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong> <%= err %>
+      </div>
+    <% } %>
+
+
+
+    <div class="d-flex justify-content-center">
+      <form action="/signup" method="post" autocomplete="off">
+          <div class="card">
+            <h2 class="card-header text-center">New User</h2>
+            <div class="card-body">
+              <h6 class="card-title">Fill out the details below to register yourself as a user</h6>
+              <div class="form-group">
+                 <div class="input-group mb-3">
+                  <input type="text" name="fname" class="form-control form-control" placeholder="First Name" required>
+                  <input type="text" name="lname" class="form-control form-control" placeholder="Last Name" required>
+                 </div>
+              </div>
+              <div class="form-group">
+                <input id="len" type="text" name="username" class="form-control form-control" placeholder="User Name" required>
+              </div>
+              <div class="form-group">
+                <input id="len" type="email" name="email" class="form-control form-control" placeholder="Email" required>
+              </div>
+              <div class="form-group">
+                <input id="len" type="password" name="password" class="form-control form-control" placeholder="Password" required>
+              </div>
+              <div class="form-group">
+                <input id="len" type="tel" autocomplete="off" pattern="\d*" minlength="10" title="Enter 10 digit mobile number or landline number only." name="phno" class="form-control form-control" placeholder="Phone number" required>
+              </div>
+              <div class="form-group">
+                 <textarea name="address" autocomplete="off" class="form-control form-control" placeholder="Address" rows="4" required></textarea>
+              </div>
+              <div class="d-flex justify-content-around">
+                <input type="submit" name="register" value="Register" class="btn btn-success">
+                <a href="/" class="btn btn-secondary">Back</a>
+              </div>
+            </div>
+          </div>
+
+     </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Just doesn't work!!! -->
+    <!-- <script>
+
+    console.log(<%= err %>);
+      if (<%= err %> == 'success'){
+        console.log("timeout entry");
+      setTimeout(function () {
+          // after 2 seconds
+          window.location = "/";
+        }, 2000);
+      }
+    </script> -->
+  </body>
+</html>

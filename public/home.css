@@ -1,0 +1,101 @@
+
+.navbar.scrolled {
+    background: rgb(0,0,0,0.7);
+    transition: background 500ms;
+}
+.section-padding{
+	padding: 70px 0px;
+}
+
+#banner {
+  background: url('../images/bg.png') no-repeat fixed;
+  background-size: cover;
+  min-height: 650px;
+  position: relative;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+#about {
+  background-color: black;
+  color: white;
+}
+#mainNavbar .nav-link {
+    color: white;
+}
+
+#mainNavbar .nav-link:hover {
+    color: #3498DB;
+}
+
+hr.btm-line {
+    height: 3px;
+    width: 60px;
+    background: #3498DB;
+    position: relative;
+    border: 0;
+    margin: 20px 0 20px 0;
+}
+
+.navbar-brand img{
+  height: 35px;
+}
+.banner-info{
+	padding-top: 200px;
+}
+.banner-logo {
+	color: white;
+}
+.banner-logo img {
+  height: 60px;
+}
+.banner-text{
+	color: #fff;
+}
+.banner-text h1{
+	font-family: 'Candal', sans-serif;
+	font-size: 35px;
+	text-transform: uppercase;
+	padding-bottom:15px;
+}
+
+.banner-text a i {
+  font-size: 18px;
+}
+.banner-text .btn{
+	margin-top: 30px;
+	padding: 10px 20px;
+	font-size: 18px;
+	border-radius: 28px;
+	color: #fff;
+}
+.overlay-detail i {
+  bottom: 25px;
+  font-size: 35px;
+  color: white;
+  padding-top: 100px;
+}
+
+footer {
+  background-color: black;
+  color: white;
+}
+
+.bglight-blue {
+    background-color: #3498DB;
+}
+.bgred {
+    background-color: #E74C3C;
+}
+.bgdark-blue {
+    background-color: #2C3E50;
+}
+
+.top-footer i {
+  padding: 10px;
+}
+.top-footer {
+  padding: 100px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}

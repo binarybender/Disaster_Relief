@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+    <!-- Custom CSS -->
+
+    <title>Home</title>
+
+    <style media="screen">
+      .card img {
+        height: 350px;
+      }
+      hr.btm-line {
+          height: 3px;
+          width: 60px;
+          background: green;
+          position: relative;
+          border: 0;
+          margin: 20px 0 20px 0;
+      }
+      body {
+        background: url("images/innerbg.jpg");
+      }
+      nav {
+        color: #e1e2e3;
+      }
+      .navbar-brand img{
+        height: 35px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 1.Clothing
+    2.Medicine
+    3.Packed food -->
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+      <a class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
+      <div class="row d-flex justify-content-end mx-2">
+        <h4>Hi <%= username.toUpperCase() %>!<a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>Pick a category</h1>
+      <hr class="btm-line">
+      <div class="card-deck">
+        <div class="card">
+          <img class="card-img-top" src="images/clothes.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Clothes</h5>
+            <p class="card-text">For men, women and children.</p>
+            <p class="card-text"><small class="text-muted">Items should not be too damaged if not pristine.</small></p>
+            <a href="clothes" class="btn btn-success">Contribute</a>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="images/medicines.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Medicines</h5>
+            <p class="card-text">Includes pills, syrup and sanitary needs.</p>
+            <p class="card-text"><small class="text-muted">Items should have reasonable expiry time.</small></p>
+            <a href="medicines" class="btn btn-success">Contribute</a>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="images/foods.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Packed Food</h5>
+            <p class="card-text">Includes biscuits, chips, juice etc.</p>
+            <p class="card-text"><small class="text-muted">Items should have reasonable expiry time.</small></p>
+            <a href="foods" class="btn btn-success">Contribute</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
