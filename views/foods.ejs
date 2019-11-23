@@ -16,7 +16,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/home.css">
 
-    <title>Home</title>
+    <title>Foods</title>
 
     <style media="screen">
       #other {
@@ -37,14 +37,19 @@
 
   <body>
     <nav class="navbar navbar-dark bg-dark justify-content-between">
-      <a class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
+      <a href="userhome" class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
       <div class="row d-flex justify-content-end mx-2">
-        <h4>Hi <%= username.toUpperCase() %>!<a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
+        <h4>Hi <%= username.toUpperCase() %>!<a href="mycontributions" class="btn btn-sm p-0 btn-primary ml-3">My Contributions</a><a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
       </div>
     </nav>
-
+    <% if (err === 'success') { %>
+      <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong>Your ID number is <%= id %>. Your contributions will be collected shortly.
+      </div>
+    <% } %>
     <div class="d-flex justify-content-center align-items-center">
-    <form  action="" method="">
+    <form  action="/food" method="post">
       <div class="card">
         <h5 class="card-header text-center">Packed Food</h5>
         <div class="card-body">
@@ -63,8 +68,9 @@
             </table>
         </div>
       </div>
-      <div class="card-footer d-flex justify-content-center">
+      <div class="card-footer d-flex justify-content-around">
         <input type="submit" name="submit" value="Submit" class="btn btn-success my-3">
+        <a href="contribute" class="btn btn-secondary my-3">Back</a>
       </div>
       </div>
       </form>

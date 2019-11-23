@@ -15,7 +15,7 @@
         crossorigin="anonymous">
     <!-- Custom CSS -->
 
-    <title>Home</title>
+    <title>Clothes</title>
 
     <style media="screen">
       table input {
@@ -39,13 +39,19 @@
 
   <body>
     <nav class="navbar navbar-dark bg-dark justify-content-between">
-      <a class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
+      <a href="userhome" class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
       <div class="row d-flex justify-content-end mx-2">
-        <h4>Hi <%= username.toUpperCase() %>!<a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
+        <h4>Hi <%= username.toUpperCase() %>!<a href="mycontributions" class="btn btn-sm p-0 btn-primary ml-3">My Contributions</a><a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
       </div>
     </nav>
+    <% if (err === 'success') { %>
+      <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong>Your ID number is <%= id %>. Your contributions will be collected shortly.
+      </div>
+    <% } %>
     <div class="d-flex justify-content-center align-items-center">
-    <form  action="" method="">
+    <form  action="/clothes" method="post">
       <div class="card">
         <h5 class="card-header text-center">Clothes</h5>
         <div class="card-body">
@@ -67,7 +73,7 @@
             </tr>
             <tr>
               <td>Sweater/Jacket</td>
-              <td><input type="number" name="sj"></td>
+              <td><input type="number" name="sweater"></td>
             </tr>
             <tr>
               <td>Saree</td>
@@ -79,7 +85,7 @@
             </tr>
             <tr>
               <td>Kids Dress</td>
-              <td><input type="number" name="kids"></td>
+              <td><input type="number" name="kids dress"></td>
             </tr>
             <tr>
               <td><input type="text" name="othername" placeholder="Other"></td>
@@ -88,8 +94,9 @@
           </table>
         </div>
       </div>
-        <div class="card-footer d-flex justify-content-center">
+        <div class="card-footer d-flex justify-content-around">
         <input type="submit" name="submit" value="Submit" class="btn btn-success my-3">
+        <a href="contribute" class="btn btn-secondary my-3">Back</a>
       </div>
         </div>
       </div>

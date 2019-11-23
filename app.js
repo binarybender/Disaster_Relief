@@ -11,6 +11,7 @@ const path = require('path');
 var url = require('url');
 
 mongoose.connect("mongodb://localhost/disaster_relief");
+var db = mongoose.connection;
 
 var app = express();
 
@@ -77,13 +78,39 @@ app.get("/contribute", isLoggedIn, function(req,res){
 });
 
 app.get("/clothes", isLoggedIn, function(req,res){
-  res.render("clothes", {username: username});
+  res.render("clothes", {username: username, err: '', id: ''});
 });
 app.get("/medicines", isLoggedIn, function(req,res){
-  res.render("medicines", {username: username});
+  res.render("medicines", {username: username, err: '',id: ''});
 });
 app.get("/foods", isLoggedIn, function(req,res){
-  res.render("foods", {username: username});
+  res.render("foods", {username: username, err: '', id: ''});
+});
+
+var res1=[];
+var res2=[];
+var res3=[];
+app.get("/mycontributions", isLoggedIn, function(req,res){
+    res.render("mycontributions", {username: username});
+});
+
+app.get("/mycontributionsclothes", isLoggedIn, function(req,res){
+  db.collection("clothes").find({name: username}).toArray(function(err, result){
+    if (err) throw err;
+    res.render("mycontributionsclothes", {username: username, result: result});
+  });
+});
+app.get("/mycontributionsfood", isLoggedIn, function(req,res){
+  db.collection("food").find({name: username}).toArray(function(err, result){
+    if (err) throw err;
+    res.render("mycontributionsfood", {username: username, result: result});
+  });
+});
+app.get("/mycontributionsmeds", isLoggedIn, function(req,res){
+  db.collection("meds").find({name: username}).toArray(function(err, result){
+    if (err) throw err;
+    res.render("mycontributionsmeds", {username: username, result: result});
+  });
 });
 
 // ======================
@@ -114,6 +141,68 @@ app.post("/userlogin", passport.authenticate("local", {
   res.redirect("/userhome");
 });
 
+app.post("/clothes", function(req, res){
+  var doc = req.body;
+  var id = String(parseInt(Math.random()*10000));
+  doc.name = username;
+  console.log(doc);
+  finaldoc={}
+  finaldoc.uid = id;
+  finaldoc.date = Date();
+  for(var key in doc)
+  {
+    if(doc[key]!="" && doc[key]!="Submit")
+    finaldoc[key]=doc[key];
+  }
+  db.collection("clothes").insertOne(finaldoc, function(err, data){
+    if (err)
+      console.log(err);
+    else{
+      res.render('clothes', {username: username,err: 'success', id: id});
+
+      console.log("1 document inserted");
+    }
+  });
+});
+
+app.post("/food", function(req, res){
+  var doc = req.body;
+  var id = String(parseInt(Math.random()*10000));
+  doc.name = username;
+  console.log(doc);
+  finaldoc={}
+  finaldoc.uid = id;
+  finaldoc.date = Date();
+  for(var key in doc)
+  {
+    if(doc[key]!="" && doc[key]!="Submit")
+    finaldoc[key]=doc[key];
+  }
+  db.collection("food").insertOne(finaldoc, function(err, data){
+    if (err) console.log(err);
+    res.render('foods', {username:username,err: 'success', id: id});
+    console.log("1 document inserted");
+  });
+});
+app.post("/meds", function(req, res){
+  var doc = req.body;
+  var id = String(parseInt(Math.random()*10000));
+  doc.name = username;
+  console.log(doc);
+  finaldoc={}
+  finaldoc.uid = id;
+  finaldoc.date = Date();
+  for(var key in doc)
+  {
+    if(doc[key]!="" && doc[key]!="Submit")
+    finaldoc[key]=doc[key];
+  }
+  db.collection("meds").insertOne(finaldoc, function(err, data){
+    if (err) console.log(err);
+    res.render('medicines', {username: username,err: 'success', id: id});
+    console.log("1 document inserted");
+  });
+});
 
 //Logout
 app.get("/logout",function(req,res){
@@ -140,21 +229,21 @@ const newsapi = new NewsAPI('bfd97b0dd88e4dcdaee9bce3ef08d477');
 
 // To query /v2/everything
 // You must include at least one q, source, or domain
-okay =0 ;
-newsapi.v2.topHeadlines({
-  q: 'flood' ,
-  //sources: 'bbc-news,the-verge',
- // domains: 'bbc.co.uk, livescience.com',
-  from: '2019-10-20',
-  to: '2019-11-15',
-  language: 'en',
-
-  sortBy: 'relevancy',
-
-}).then(response => {
-
-  okay = JSON.parse(JSON.stringify(response))
-  console.log('Articles is ')
+// okay =0 ;
+// newsapi.v2.topHeadlines({
+//   q: 'flood' ,
+//   //sources: 'bbc-news,the-verge',
+//  // domains: 'bbc.co.uk, livescience.com',
+//   from: '2019-10-20',
+//   to: '2019-11-15',
+//   language: 'en',
+//
+//   sortBy: 'relevancy',
+//
+// }).then(response => {
+//
+//   okay = JSON.parse(JSON.stringify(response))
+//   console.log('Articles is ')
 
   res.render("userhome", {username: username})
   // res.send("<b>"+response['articles'][0]['url']+"</b>")
@@ -166,8 +255,6 @@ newsapi.v2.topHeadlines({
       articles: [...]
     }
   */
-});
-
 });
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"]=0;
