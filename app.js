@@ -449,6 +449,20 @@ app.get("/FoodSummary" , isLoggedIn , function(req , res){
 
 });
 
+app.post("/userinfo", isLoggedIn, function(req,res){
+  var input = req.body;
+  var name = input.name;
+  console.log(input);
+  console.log('INSIDE user details')
+  db.collection("users").find({username: name}).toArray(function(err , result){
+      console.log(result) ;
+       res.render("userdetails" , {obj : result })
+  });
+});
+
+app.get("/userdetails", isLoggedIn, function(req,res){
+  res.render("userdetails" , {obj : ''});
+});
 app.get("/adminhome", isLoggedIn, function(req,res){
   res.render("adminhome");
 });
