@@ -56,7 +56,7 @@
             <div class="banner-text text-center">
               <h1 class="white">A Disaster Relief Management System</h1>
               <p>An attempt to help the needy and put a smile on their face <i class="far fa-smile-beam"></i></p>
-              <a href="userlogin" class="btn btn-success"><i class="fas fa-sign-in-alt"></i> Login</a>
+              <a href="userlogin" class="btn btn-success" data-toggle="modal" data-target="#modalsuccess"><i class="fas fa-sign-in-alt"></i> Login</a>
               <a href="signup" class="btn btn-primary"><i class="fas fa-user-plus"></i> Sign Up</a>
             </div>
             <div class="overlay-detail text-center">
@@ -67,7 +67,7 @@
       </div>
 
       <!-- Modal -->
-      <!-- <div class="modal fade" id="modalsuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal fade" id="modalsuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -77,11 +77,12 @@
               </button>
             </div>
             <div class="modal-body d-flex justify-content-around">
-              <p>Successfully Submitted!</p>
+              <a href="userlogin" class="btn btn-success">User</a>
+              <a href="adminlogin" class="btn btn-danger">Admin</a>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </section>
 
     <section id="services" class="section-padding">
@@ -130,18 +131,18 @@
 
             <form>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="inputName" placeholder="Your Name">
+                  <input type="text" class="form-control" id="inputName" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputEmail" placeholder="Your Email">
+                  <input type="email" class="form-control" id="inputEmail" placeholder="Your Email" required>
                 </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="inputSubject" placeholder="Subject">
+                <input type="text" class="form-control" id="inputSubject" placeholder="Subject" required>
               </div>
               <div class="form-group">
-                <textarea class="form-control" id="inputMessage" rows="4" placeholder="Message"></textarea>
+                <textarea class="form-control" id="inputMessage" rows="4" placeholder="Message" required></textarea>
               </div>
-              <button type="submit" class="btn btn-success">Send Message</button>
+              <button type="submit" class="btn btn-success">Send Message</button><p id="message"></p>
             </form>
           </div>
         </div>
@@ -207,6 +208,7 @@ crossorigin="anonymous"></script>
     <script>
 
     $('form').on('submit' , (e) => {
+        $('#message').text("Your message has been sent! Thank you!");
          const email = $('#inputEmail').val().trim();
          const subject = $('#inputSubject').val().trim();
          const text =$('#inputMessage').val().trim() ;
@@ -221,7 +223,7 @@ crossorigin="anonymous"></script>
 
      });
 
-      
+
         $(function () {
             $(document).scroll(function () {
                 var $nav = $("#mainNavbar");

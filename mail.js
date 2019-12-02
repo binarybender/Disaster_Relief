@@ -4,8 +4,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'BobTheBuilder9121@gmail.com',
-    pass: 'Ligma^inf'
+    user: 'altreuon.ceo@gmail.com',
+    pass: 'cmrit1234'
   }
 });
 
@@ -17,8 +17,9 @@ const sendMail = (email , subject , text , name ,  cb) => {
 	var mailOptions = {
   from: email,
   to: email,
-  subject: "Altrueon #"+String(parseInt(Math.random()*10000))+ " ticket",
-  text: "Hi "+name+ "! \nYour query regarding "+subject.toLowerCase()+" has been received. We'll get back to you soon."
+
+  subject: (subject!="admin's response") ? "Altrueon #"+String(parseInt(Math.random()*10000))+ " ticket" : "Altrueon Support",
+  text: (subject!="admin's response") ? "Hi "+name+ "! \nYour query regarding "+subject.toLowerCase()+" has been received. We'll get back to you soon." : text
   };
 
   transporter.sendMail(mailOptions, function(error, info){

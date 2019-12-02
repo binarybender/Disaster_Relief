@@ -48,6 +48,12 @@
         <strong>Success!</strong>Your ID number is <%= id %>. Your contributions will be collected shortly.
       </div>
     <% } %>
+    <% if (err === 'fail') { %>
+      <div class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong>Please enter your quantities properly.
+      </div>
+    <% } %>
     <div class="d-flex justify-content-center align-items-center">
     <form  action="/food" method="post">
       <div class="card">
@@ -59,11 +65,11 @@
               <tr><th>Item</th><th>Quantity</th></tr>
               <tr>
                 <td  style="width:800px">Solids</td>
-                <td><input type="number" name="solids"></td>
+                <td><input type="number" min="1" name="solids"></td>
               </tr>
               <tr>
                 <td>Liquids</td>
-                <td><input type="number" name="liquids"></td>
+                <td><input type="number" min="1" name="liquids"></td>
               </tr>
             </table>
         </div>

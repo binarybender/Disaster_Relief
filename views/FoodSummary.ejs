@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dynamic Editable HTML Table using Javascript, Jquery and Bootstrap with add, edit, and Delete Options</title>
+    <!-- CSS files-->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src = "functions.js"></script>
+
+  <style media="screen">
+nav {
+  color: #e1e2e3;
+}
+.navbar-brand img{
+  height: 35px;
+}
+.thumbnail img {
+  width: 350px;
+  height: 170px;
+}
+body {
+  background: url("images/innerbg.jpg");
+}
+</style>
+   </head>
+  <body>
+    <!-- page content -->
+     <nav class="navbar navbar-dark bg-dark justify-content-between">
+      <a href="adminhome"class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
+      <div class="row d-flex justify-content-end mx-2">
+      <h4>Hi Jon!<a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
+    </div>
+     </nav>
+
+    <h1 class="col-md-12 text-center" style="color: black">Food contribution</h1>
+
+
+
+
+    <!--JS Files-->
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="boostable.js"></script>
+<script>
+                var o = document.getElementById("DyanmicTable") ;
+                console.log(o);
+                var list1 = []
+                var isis = new Array()
+                var headings = []
+                var str = "" ;
+                var btn_count = 0
+
+                  <% for(var i=0 ; i<obj1.length ; i++){ %>
+                   var final_str = ""
+                  var head = []
+
+
+                  var val = ""
+                  var name_info =""
+                  var user_id_info = ""
+                  var vall = 0
+                  ++btn_count;
+                 <%  for(var key in obj1[i]){ %>
+                      var x = <%=i%>
+                      str = ""
+
+                      <% for(var j=0 ; j<key.length ; j++){%>
+                      var xx = <%=key.charAt(j).charCodeAt(0)%>
+                      str+=String.fromCharCode(xx);
+
+                      <%}%>
+                      if(str=="received")
+                      {
+                          vall = <%=obj1[i]["received"]%>
+                      }
+                      else
+                        vall = ""
+                      if(str=="name"){
+                        <% for(var j=0 ; j<obj1[i]["name"].length ; j++){%>
+                      var xx = <%=obj1[i]["name"].charAt(j).charCodeAt(0)%>
+                      name_info+=String.fromCharCode(xx);
+
+                      <%}%>
+
+                      }
+                      else
+                          name_info = ""
+                      if(str=="uid")
+                      {
+                          console.log('HELEOELELEOELEEO')
+                         <% for(var j=0 ; j<obj1[i]["uid"].length ; j++){%>
+                      var xx = <%=obj1[i]["uid"].charAt(j).charCodeAt(0)%>
+                      user_id_info+=String.fromCharCode(xx);
+
+                      <%}%>
+                      }
+
+
+                        <% for(var j=0 ; j<obj1[i][key].length ; j++){%>
+                      var xx = <%=obj1[i][key].charAt(j).charCodeAt(0)%>
+                      val+=String.fromCharCode(xx);
+
+                      <%}%>
+                     // value[str] = val
+                    head.push(str)
+                    console.log('inside loop'+user_id_info+" "+name_info)
+                    if(str=="received")
+                    {
+
+
+                        val = ""
+
+                    }
+
+                  else if(str!="_id"){
+
+
+
+
+            final_str+=str+" : "+val+"<br>"
+
+                  val = ""
+
+
+                  }
+
+
+                 <% }%>
+
+console.log('outsside loop'+user_id_info+" "+name_info)
+ isis.push(user_id_info+" "+name_info)
+
+            var x = document.createElement("div") ;
+            console.log("ISIS IS "+isis)
+            x.className = "card" ;
+             var y = document.createElement("div");
+            y.className= "view overlay" ;
+            var z = document.createElement("a") ;
+            z.href = "#" ;
+             var a = document.createElement("div") ;
+            a.className = "rgba-white-slight" ;
+            z.appendChild(a) ;
+            y.appendChild(z) ;
+            x.appendChild(y) ;
+
+
+
+            x1 = document.createElement("div")
+            x1.className = "card-body"
+            y1 = document.createElement("h4")
+            y1.className = "card-title"
+            y1.innerHTML = ""
+            z1 = document.createElement("p")
+            z1.className = "card-text"
+            console.log('FINAL '+final_str)
+            z1.innerHTML = final_str
+            a1 = document.createElement("a")
+            a1.href = "FoodSummary"
+            a1.id = btn_count - 1
+            a1.className = "btn btn-primary"
+            a1.innerHTML = "Accept"
+            console.log('The button count is '+btn_count)
+            x1.appendChild(y1)
+            x1.appendChild(z1)
+            x1.appendChild(a1)
+            x.appendChild(x1)
+                        document.body.appendChild(x) ;
+                   console.log(x1);
+
+                      console.log('ggggggggggggggggggggggggggggggggg')
+
+
+                 headings.push(head)
+                  $(".btn").click(function(){
+                    var id = $(this).attr('id')
+                    console.log('ID   DI '+id)
+                    var arr = new Array()
+                    var str = isis[id]
+                    arr = str.split(" ")
+
+                    console.log('ID Name : '+arr[1])
+
+                    console.log('g1g1g1g1')
+                    console.log(user_id_info)
+         $.post('/togglefood' , {name : arr[1], uid : arr[0]} ,  function(){
+             console.log('togglin');
+         });
+
+
+     });
+
+
+
+
+                  <% } %>
+
+</script>
+  </body>
+</html>

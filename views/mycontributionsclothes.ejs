@@ -38,6 +38,11 @@
       .navbar-brand img{
         height: 35px;
       }
+      #received {
+        color: white;
+        background-color: #4BB543;
+        padding: 0 5px 0 5px;
+      }
     </style>
   </head>
 
@@ -58,16 +63,24 @@
       <a href="mycontributionsmeds" class="btn btn-danger">Medicines</a>
       <a href="mycontributionsfood" class="btn btn-warning">Food</a>
       <div class="jumbotron px-2 py-0">
-        <% var keys = ["_id","date","name","uid","othername","othervalue"]; %>
+        <% var keys = ["_id","date","name","uid","sj","othername","othervalue","received"]; %>
         <%  for(var i=0;i<result.length;i++) { %>
           <h5>CONTRIBUTION ID : <%=result[i]['uid']%></h5>
+          <% if(result[i]['received'] == false) { %>
+            <div class="d-flex justify-content-end">
+              <h5 id="received">RECEIVED</h5>
+            </div>
+          <%} %>
           <h6>DATE : <%=result[i]['date'].toUpperCase()%></h6>
             <% for(var key in result[i]) { %>
               <% if(key == "othername") { %>
-                <p><%=result[i][key]%> : <%=result[i]['othervalue']%></p>
+                <p><%=result[i][key].toUpperCase()%> : <%=result[i]['othervalue']%></p>
               <% } %>
               <% if(!keys.includes(key)) { %>
                 <p><%=key.toUpperCase()%> : <%=result[i][key]%></p>
+            <%  } %>
+              <% if(key == "sj") { %>
+                <p>SWEATERS : <%=result[i][key]%></p>
             <%  }
           } %>
           <hr>

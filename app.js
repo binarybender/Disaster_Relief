@@ -4,6 +4,7 @@ var express = require("express"),
     User = require("./models/user"),
     bodyParser = require("body-parser"),
     LocalStrategy = require("passport-local"),
+    MongoClient = require('mongodb').MongoClient ,
     passportLocalMongoose = require("passport-local-mongoose");
 
 const sendMail = require('./mail.js');
@@ -31,25 +32,6 @@ extended : false
 }));
 app.use(express.json()) ;
 
-app.post('/email' , (req , res) => {
-
-const{subject , email, text , name} = req.body ;
-console.log('Data : ' , req.body) ;
-// ///////////
-// mongoose.connect("mongodb://localhost/mails")
-//var o = JSON.parse(req.body);
-
-sendMail(email , subject , text, name,  function(err , data){
-if(err){
-	res.status(500).json({message:'Internal Error'});
-}
-else{
-	res.json({message : 'Sentt!!!!!'}) ;
-}
-});
-res.json({message : 'Message Received ! '})
-
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -70,6 +52,10 @@ app.get("/userlogin",function(req,res){
 app.get("/adminlogin",function(req,res){
   res.render("adminlogin");
 });
+app.get("/adminhome",function(req,res){
+  res.render("adminhome");
+});
+
 app.get("/signup",function(req,res){
   res.render("signup", {err: ''});
 });
@@ -138,8 +124,25 @@ app.post("/userlogin", passport.authenticate("local", {
   failureRedirect: "/userlogin"
 }),function(req,res){
   username = req.user.username;
-  res.redirect("/userhome");
+  if(username == "jon") {
+    res.redirect("/userlogin")
+  }
+  else {
+    res.redirect("/userhome");
+  }
 });
+app.post("/adminlogin", passport.authenticate("local", {
+  failureRedirect: "/adminlogin"
+}),function(req,res){
+  username = req.user.username;
+  if(username == "jon") {
+    res.redirect("/adminhome")
+  }
+  else {
+    res.redirect("/adminlogin");
+  }
+});
+
 
 app.post("/clothes", function(req, res){
   var doc = req.body;
@@ -149,20 +152,32 @@ app.post("/clothes", function(req, res){
   finaldoc={}
   finaldoc.uid = id;
   finaldoc.date = Date();
+  finaldoc.received = true;
+  var notEmpty = 0;
   for(var key in doc)
   {
     if(doc[key]!="" && doc[key]!="Submit")
     finaldoc[key]=doc[key];
+    if(doc[key]!="" && key!="name" && key!="submit")
+      notEmpty++;
   }
-  db.collection("clothes").insertOne(finaldoc, function(err, data){
-    if (err)
-      console.log(err);
-    else{
-      res.render('clothes', {username: username,err: 'success', id: id});
+  if((doc["othername"]!="" && doc["othervalue"]=="") || (doc["othervalue"]!="" && doc["othername"]==""))
+  notEmpty=0;
+  if(notEmpty)
+  {
+    db.collection("clothes").insertOne(finaldoc, function(err, data){
+      if (err)
+        console.log(err);
+      else{
+        res.render('clothes', {username: username,err: 'success', id: id});
+        console.log("1 document inserted");
+      }
+    });
+  }
+  else {
+    res.render('clothes', {username: username,err: 'fail', id: id});
+  }
 
-      console.log("1 document inserted");
-    }
-  });
 });
 
 app.post("/food", function(req, res){
@@ -173,16 +188,27 @@ app.post("/food", function(req, res){
   finaldoc={}
   finaldoc.uid = id;
   finaldoc.date = Date();
+  finaldoc.received = true;
+  var notEmpty = 0;
   for(var key in doc)
   {
     if(doc[key]!="" && doc[key]!="Submit")
     finaldoc[key]=doc[key];
+    if(doc[key]!="" && key!="name" && key!="submit")
+      notEmpty++;
   }
-  db.collection("food").insertOne(finaldoc, function(err, data){
-    if (err) console.log(err);
-    res.render('foods', {username:username,err: 'success', id: id});
-    console.log("1 document inserted");
-  });
+  if(notEmpty)
+  {
+    db.collection("food").insertOne(finaldoc, function(err, data){
+      if (err) console.log(err);
+      res.render('foods', {username:username,err: 'success', id: id});
+      console.log("1 document inserted");
+    });
+  }
+  else {
+    res.render('foods', {username:username,err: 'fail', id: id});
+  }
+
 });
 app.post("/meds", function(req, res){
   var doc = req.body;
@@ -192,16 +218,31 @@ app.post("/meds", function(req, res){
   finaldoc={}
   finaldoc.uid = id;
   finaldoc.date = Date();
+  finaldoc.received = true;
+  var notEmpty = 0;
   for(var key in doc)
   {
     if(doc[key]!="" && doc[key]!="Submit")
-    finaldoc[key]=doc[key];
+      finaldoc[key]=doc[key];
+    if(doc[key]!="" && key!="name" && key!="submit")
+      notEmpty++;
   }
-  db.collection("meds").insertOne(finaldoc, function(err, data){
-    if (err) console.log(err);
-    res.render('medicines', {username: username,err: 'success', id: id});
-    console.log("1 document inserted");
-  });
+  console.log(notEmpty);
+  if((doc["othername"]!="" && doc["othervalue"]=="") || (doc["othervalue"]!="" && doc["othername"]==""))
+  notEmpty=0;
+  if(notEmpty)
+  {
+    db.collection("meds").insertOne(finaldoc, function(err, data){
+      if (err) console.log(err);
+      res.render('medicines', {username: username,err: 'success', id: id});
+      console.log("1 document inserted");
+    });
+  }
+  else
+  {
+    res.render('medicines', {username: username,err: 'fail', id: id});
+  }
+
 });
 
 //Logout
@@ -220,7 +261,7 @@ function isLoggedIn(req, res, next) {
 
 // Disaster list NewsAPI
 
-app.get('/userhome'  , (req , res) => {
+app.get('/userhome'  , isLoggedIn, (req , res) => {
 
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI('bfd97b0dd88e4dcdaee9bce3ef08d477');
@@ -258,6 +299,159 @@ const newsapi = new NewsAPI('bfd97b0dd88e4dcdaee9bce3ef08d477');
 });
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"]=0;
+
+app.post('/email' , (req , res) => {
+var url1 = "mongodb://localhost:27017/";
+const{subject , email, text , name} = req.body ;
+// console.log('SUBJECT '+subject) ;
+console.log('Data : ' , req.body) ;
+//Beginning of mongo db - connection
+MongoClient.connect(url1 , function(err , db){
+if(err)
+    throw err ;
+var dbo = db.db("disaster_relief") ;
+var myObj = req.body ;
+if(subject!="admin's response" && subject!="Altrueon Support")
+dbo.collection("mail").insertOne(myObj , function(err , res){
+
+if(err)
+    throw err ;
+console.log('One doc inserted') ;
+});
+});
+
+
+app.post('/delete' , (req, res) => {
+var url1 = "mongodb://localhost:27017/";
+const{subject , email, text , name} = req.body ;
+console.log('Data to be deleted '+req.body) ;
+MongoClient.connect(url1 , function(err , db){
+var myObj = req.body ;
+var dbo = db.db("disaster_relief");
+dbo.collection("mail").deleteOne(myObj , function(err , res){
+if(!err)
+      console.log('Delete has been done succesfully' , res.result.n)
+else
+      console.log('Some issue '+err)
+});
+});
+});
+
+sendMail(email , subject , text, name,  function(err , data){
+if(err){
+	res.status(500).json({message:'Internal Error'});
+
+}
+else{
+
+	res.json({message : 'Sentt!!!!!'}) ;
+}
+});
+res.json({message : 'Message Received ! '});
+});
+
+app.post('/editable' , (req , res) => {
+var url1 = "mongodb://localhost:27017/";
+MongoClient.connect(url1, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("disaster_relief");
+  var myquery = req.body[0];
+  var newvalues = { $set: req.body[1] };
+  dbo.collection("mail").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+  });
+});
+});
+
+
+
+
+
+app.get("/boostable.js" , isLoggedIn , function(req , res){                   //Required for editable table - 2
+res.sendFile('D:\\Courses\\Web dev\\DR\\views\\boostable.js');
+});
+app.get("/adminView" , isLoggedIn , function(req , res){    //Extra part rn incoming
+
+   url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("disaster_relief");
+  dbo.collection("mail").find().toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+   res.render("editableTable" , {username : username , obj1:result}) ;
+    console.log('INSIDE APP.JS');
+  });
+});
+
+
+});
+
+app.post("/toggleclothes", function(req, res){
+  var doc = req.body;
+  console.log(doc)
+  db.collection("clothes").updateOne(doc , {$set : {"received" : false}} , function(err , res){
+    if(err)
+        throw err  ;
+      console.log('one updatewd get rekt')
+  });
+
+}) ;
+app.post("/togglefood", function(req, res){
+  var doc = req.body;
+  console.log(doc)
+  db.collection("food").updateOne(doc , {$set : {"received" : false}} , function(err , res){
+    if(err)
+        throw err  ;
+      console.log('one updatewd get rekt')
+  });
+
+}) ;
+app.post("/togglemedicine", function(req, res){
+  var doc = req.body;
+  console.log(doc)
+  db.collection("meds").updateOne(doc , {$set : {"received" : false}} , function(err , res){
+    if(err)
+        throw err  ;
+      console.log('one updatewd get rekt')
+  });
+
+}) ;
+
+
+app.get("/ClothesSummary" , isLoggedIn , function(req , res){
+    headings = {}
+    console.log('INSIDE clothes summary')
+    db.collection("clothes").find({received:true}).toArray(function(err , result){
+        console.log(result) ;
+         res.render("ClothesSummary" , {username : username ,obj1 : result })
+    });
+
+});
+app.get("/MedicineSummary" , isLoggedIn , function(req , res){
+    headings = {}
+    console.log('INSIDE meds summary')
+    db.collection("meds").find({received:true}).toArray(function(err , result){
+        console.log(result) ;
+         res.render("MedicineSummary" , {username : username ,obj1 : result })
+    });
+
+});
+app.get("/FoodSummary" , isLoggedIn , function(req , res){
+    headings = {}
+    console.log('INSIDE food summary')
+    db.collection("food").find({received:true}).toArray(function(err , result){
+        console.log(result) ;
+         res.render("FoodSummary" , {username : username ,obj1 : result })
+    });
+
+});
+
+app.get("/adminhome", isLoggedIn, function(req,res){
+  res.render("adminhome");
+});
 
 app.listen(3000,function(){
   console.log("Server running on port 3000...");

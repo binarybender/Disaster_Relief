@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dynamic Editable HTML Table using Javascript, Jquery and Bootstrap with add, edit, and Delete Options</title>
+    <!-- CSS files-->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src = "functions.js"></script>
+
+  <style media="screen">
+nav {
+  color: #e1e2e3;
+}
+.navbar-brand img{
+  height: 35px;
+}
+.thumbnail img {
+  width: 350px;
+  height: 170px;
+}
+body {
+  background: url("images/innerbg.jpg");
+}
+</style>
+   </head>
+  <body>
+    <!-- page content -->
+     <nav class="navbar navbar-dark bg-dark justify-content-between">
+      <a href="adminhome" class="navbar-brand"><img src="images/logofinal.png" alt="" class="img-fluid"> Altrueon</a>
+      <div class="row d-flex justify-content-end mx-2">
+      <h4>Hi Jon!<a href="logout" class="btn btn-sm p-0 btn-secondary ml-3">Logout</a></h4>
+    </div>
+     </nav>
+
+    <h1 class="col-md-12 text-center" style="color: black">List of the emails to be processed </h1>
+
+
+    <br>
+    <div class="table-responsive col-md-12">
+      <center>
+<table class="table table-bordered table-striped table-hover table-condensed  text-center" id="DyanmicTable">
+  <thead>
+    <tr>
+      <th class="text-center">
+        Full Name
+      </th>
+      <th class="text-center">
+        Email Address
+      </th>
+      <th class="text-center">
+        Subject of the message
+      </th>
+      <th>
+            Message Text
+      </th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+
+</table>
+</center>
+</div>
+
+
+      <div class="row d-flex justify-content-end mx-2">
+
+    </div>
+
+
+
+
+
+    <br>
+
+    <!--JS Files-->
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="boostable.js"></script>
+<script>
+
+                <% for(var i=0 ; i<obj1.length ; i++){ %>
+
+                   // var tr = document.createElement('tr');
+
+                  var x = <%=i%>;
+                  console.log(x);
+                  var o = document.getElementById("DyanmicTable") ;
+                  console.log(o);
+
+                  var str1 = "" ;
+                  <% for(var j=0 ; j<obj1[i]["name"].length ; j++){%>
+                      var xx = <%=obj1[i]["name"].charAt(j).charCodeAt(0)%>;
+                      str1+=String.fromCharCode(xx);
+
+                  <%}%>
+                  var str2="" ;
+                  <% for(var j=0 ; j<obj1[i]["email"].length ; j++){%>
+                      var xx = <%=obj1[i]["email"].charAt(j).charCodeAt(0)%>;
+                      str2+=String.fromCharCode(xx);
+
+                  <%}%>
+                  var str3 = "";
+                  <% for(var j=0 ; j<obj1[i]["subject"].length ; j++){%>
+                      var xx = <%=obj1[i]["subject"].charAt(j).charCodeAt(0)%>;
+                      str3+=String.fromCharCode(xx);
+
+                  <%}%>
+                  var str4 = "";
+                  <% for(var j=0 ; j<obj1[i]["text"].length ; j++){%>
+                      var xx = <%=obj1[i]["text"].charAt(j).charCodeAt(0)%>;
+                      str4+=String.fromCharCode(xx);
+
+                  <%}%>
+
+                  var row = o.insertRow(1) ;
+                  var cell1 = row.insertCell(0);
+                  var cell2 = row.insertCell(1) ;
+                  var cell3 = row.insertCell(2);
+                  var cell4 = row.insertCell(3) ;
+                  cell1.innerHTML = str1;
+                  cell2.innerHTML = str2;
+
+                  cell3.innerHTML =str3 ;
+                  cell4.innerHTML = str4 ;
+                  var x4 = <%=obj1.length%>
+
+
+                  var xxx = document.getElementsByTagName('tbody')[0] ;
+                  xxx.append(row) ;
+
+
+                 <% }                %>
+ $('#DyanmicTable').SetEditable();
+</script>
+  </body>
+</html>

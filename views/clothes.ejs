@@ -50,6 +50,12 @@
         <strong>Success!</strong>Your ID number is <%= id %>. Your contributions will be collected shortly.
       </div>
     <% } %>
+    <% if (err === 'fail') { %>
+      <div class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong>Please enter your quantities properly.
+      </div>
+    <% } %>
     <div class="d-flex justify-content-center align-items-center">
     <form  action="/clothes" method="post">
       <div class="card">
@@ -61,35 +67,35 @@
             <tr><th>Item</th><th>Quantity</th></tr>
             <tr>
               <td>T-shirt</td>
-              <td><input type="number" name="tshirt"></td>
+              <td><input type="number"  min="1" name="tshirt"></td>
             </tr>
             <tr>
               <td>Shirt</td>
-              <td><input type="number" name="shirt"></td>
+              <td><input type="number" min="1"  name="shirt"></td>
             </tr>
             <tr>
               <td>Pant</td>
-              <td><input type="number" name="pant"></td>
+              <td><input type="number"  min="1" name="pant"></td>
             </tr>
             <tr>
               <td>Sweater/Jacket</td>
-              <td><input type="number" name="sweater"></td>
+              <td><input type="number"  min="1" name="sweater"></td>
             </tr>
             <tr>
               <td>Saree</td>
-              <td><input type="number" name="saree"></td>
+              <td><input type="number"  min="1" name="saree"></td>
             </tr>
             <tr>
               <td>Kurti</td>
-              <td><input type="number" name="kurti"></td>
+              <td><input type="number"  min="1" name="kurti"></td>
             </tr>
             <tr>
               <td>Kids Dress</td>
-              <td><input type="number" name="kids dress"></td>
+              <td><input type="number" min="1"  name="kids dress"></td>
             </tr>
             <tr>
               <td><input type="text" name="othername" placeholder="Other"></td>
-              <td><input type="number" name="othervalue"></td>
+              <td><input type="number" min="1" name="othervalue"></td>
             </tr>
           </table>
         </div>
